@@ -18,6 +18,9 @@
 # under the License.
 #
 -->
+# Contributing to Apache Cordova famoco device plugin
+
+Anyone can contribute to this, push PR to that from for own fork.
 
 # Contributing to Apache Cordova
 
@@ -34,4 +37,5 @@ The details are explained there, but the important items are:
  - Run the tests so your patch doesn't break existing functionality.
 
 We look forward to your contributions!
+
 

@@ -44,6 +44,11 @@ function Device () {
     this.isVirtual = null;
     this.serial = null;
     this.isiOSAppOnMac = null;
+	this.isFamoco = null;
+	this.organization = null;
+	this.fleet = null;
+	this.profile = null;
+	
 
     var me = this;
 
@@ -70,6 +75,13 @@ function Device () {
                 // SDK Version is Android specific. If defined, it will be appended.
                 if (info.sdkVersion !== undefined) {
                     me.sdkVersion = info.sdkVersion;
+                }
+
+                if (info.organization !== undefined) {
+                    me.isFamoco = true;
+					me.organization = info.organization;
+					me.fleet = info.fleet;
+					me.profile = info.profile;
                 }
 
                 channel.onCordovaInfoReady.fire();

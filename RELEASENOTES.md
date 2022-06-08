@@ -19,6 +19,9 @@
 #
 -->
 # Release Notes
+### 2.1.0-FAMOCO
+* Add famoco infos on android device
+
 
 ### 2.1.0 (Apr 08, 2022)
 

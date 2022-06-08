@@ -1,6 +1,6 @@
 ---
-title: Device
-description: Get device information.
+title: FAMOCO Device
+description: Get Famoco device information compatible.
 ---
 <!--
 # license: Licensed to the Apache Software Foundation (ASF) under one
@@ -21,9 +21,8 @@ description: Get device information.
 #         under the License.
 -->
 
-# cordova-plugin-device
+# cordova-plugin-famoco-device
 
-[![Android Testsuite](https://github.com/apache/cordova-plugin-device/actions/workflows/android.yml/badge.svg)](https://github.com/apache/cordova-plugin-device/actions/workflows/android.yml) [![Chrome Testsuite](https://github.com/apache/cordova-plugin-device/actions/workflows/chrome.yml/badge.svg)](https://github.com/apache/cordova-plugin-device/actions/workflows/chrome.yml) [![iOS Testsuite](https://github.com/apache/cordova-plugin-device/actions/workflows/ios.yml/badge.svg)](https://github.com/apache/cordova-plugin-device/actions/workflows/ios.yml) [![Lint Test](https://github.com/apache/cordova-plugin-device/actions/workflows/lint.yml/badge.svg)](https://github.com/apache/cordova-plugin-device/actions/workflows/lint.yml)
 
 This plugin defines a global `device` object, which describes the device's hardware and software.
 Although the object is in the global scope, it is not available until after the `deviceready` event.
@@ -37,7 +36,15 @@ function onDeviceReady() {
 
 ## Installation
 
-    cordova plugin add cordova-plugin-device
+    cordova plugin add https://github.com/Spechey/cordova-plugin-famoco-device
+	
+or on local dev
+
+     cordova plugin add ../path/to/my/plugin/relative/to/cordova-plugin-famoco-device --link	
+
+Add in your confix.xml for famoco device : 
+ 	
+	<uses-permission android:name="com.famoco.fms.permission.READ_SYNC_DATA"/>
 
 ## Properties
 
@@ -50,6 +57,10 @@ function onDeviceReady() {
 - device.isVirtual
 - device.serial
 - device.sdkVersion (Android only)
+- device.organzation (Famoco only)
+- device.fleet (Famoco only)
+- device.profile (Famoco only)
+
 
 ## device.cordova
 

@@ -29,6 +29,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.provider.Settings;
+import android.util.Log;
+import android.net.Uri;
+import android.database.Cursor;
+import android.content.ContentResolver;
 
 public class Device extends CordovaPlugin {
     public static final String TAG = "Device";
@@ -39,6 +43,19 @@ public class Device extends CordovaPlugin {
     private static final String ANDROID_PLATFORM = "Android";
     private static final String AMAZON_PLATFORM = "amazon-fireos";
     private static final String AMAZON_DEVICE = "Amazon";
+    private static final String FAMOCO_DEVICE = "Famoco";
+
+
+    private static final String COLUMN_NAME = "name";
+    private static final String COLUMN_VALUE = "value";
+    private static final String[] COLUMNS = {"_id", COLUMN_NAME, COLUMN_VALUE};
+
+    private static final String KEY_CONNECTED = "connected";
+    private static final String KEY_FLEET_NAME = "fleetName";
+    private static final String KEY_LAST_SYNC_SUCCESSFUL = "lastSyncSuccessful";
+    private static final String KEY_LAST_SYNC = "lastSync";
+    private static final String KEY_ORG_NAME = "organizationName";
+    private static final String KEY_PROFILE_NAME = "profileName";
 
     /**
      * Constructor.
@@ -74,9 +91,13 @@ public class Device extends CordovaPlugin {
             r.put("platform", this.getPlatform());
             r.put("model", this.getModel());
             r.put("manufacturer", this.getManufacturer());
-	        r.put("isVirtual", this.isVirtual());
+            r.put("isVirtual", this.isVirtual());
             r.put("serial", this.getSerialNumber());
             r.put("sdkVersion", this.getSDKVersion());
+            r.put("organization", this.getFamocoInfo(KEY_ORG_NAME));
+            r.put("fleet", this.getFamocoInfo(KEY_FLEET_NAME));
+            r.put("profile", this.getFamocoInfo(KEY_PROFILE_NAME));
+
             callbackContext.success(r);
         }
         else {
@@ -166,8 +187,35 @@ public class Device extends CordovaPlugin {
     }
 
     public boolean isVirtual() {
-	return android.os.Build.FINGERPRINT.contains("generic") ||
-	    android.os.Build.PRODUCT.contains("sdk");
+        return android.os.Build.FINGERPRINT.contains("generic") ||
+                android.os.Build.PRODUCT.contains("sdk");
+    }
+
+
+
+    /**
+     * Get the Famoco info name stored in the Famoco Layer.
+     *
+     * @return a String containing the organization name or an empty string if not found.
+     */
+    private String getFamocoInfo(String infoName) {
+        String value = "";
+        ContentResolver contentResolver = this.cordova.getActivity().getApplicationContext().getContentResolver();
+        if (contentResolver != null) {
+            String selection = String.format("%s = '%s'", COLUMN_NAME, infoName);
+            try {
+                Cursor cursor = contentResolver.query(
+                        Uri.parse("content://com.famoco.fms.dashboard.provider/syncdata"),
+                        COLUMNS, selection, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    value = cursor.getString(cursor.getColumnIndex(COLUMN_VALUE));
+                    cursor.close();
+                }
+            } catch (SecurityException e) {
+                Log.e(TAG, "Failed to retrieve the "+ infoName +" name", e);
+            }
+        }
+        return value;
     }
 
 }

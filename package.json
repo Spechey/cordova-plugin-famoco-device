@@ -1,10 +1,10 @@
 {
-  "name": "cordova-plugin-device",
+  "name": "cordova-plugin-famoco-device",
   "version": "2.1.1-dev",
-  "description": "Cordova Device Plugin",
+  "description": "Cordova Famoco Device Plugin",
   "types": "./types/index.d.ts",
   "cordova": {
-    "id": "cordova-plugin-device",
+    "id": "cordova-plugin-famoco-device",
     "platforms": [
       "android",
       "electron",
@@ -14,8 +14,8 @@
       "osx"
     ]
   },
-  "repository": "github:apache/cordova-plugin-device",
-  "bugs": "https://github.com/apache/cordova-plugin-device/issues",
+  "repository": "github:Spechey/cordova-plugin-famoco-device",
+  "bugs": "https://github.com/Spechey/cordova-plugin-famoco-device/issues",
   "keywords": [
     "cordova",
     "device",
@@ -31,7 +31,7 @@
     "test": "npm run lint",
     "lint": "eslint ."
   },
-  "author": "Apache Software Foundation",
+  "author": "Apache Software Foundation, Mathieu CLAUDEL",
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
